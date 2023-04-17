@@ -14,26 +14,16 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(Main.class);
-//        Console.main(args);
 
         AvgGradeByGroupByCourse avgGradeByGroupByCourse = context.getBean(AvgGradeByGroupByCourse.class);
         Map<Course, Map<Group, Double>> avgGradeByCourseByGroup = avgGradeByGroupByCourse.get();
-//        System.out.println("\n\n\n" + avgGradeByCourseByGroup);
         System.out.println();
-
 
         for (Course course : avgGradeByCourseByGroup.keySet()) {
 
-//            System.out.println("g:" + group.getName());
             Map<Group, Double> avgGradeByGroup = avgGradeByCourseByGroup.get(course);
-
             for (Group group : avgGradeByGroup.keySet()) {
-//                System.out.println("c:" + course.getName());
-//                System.out.println("avgg: " + avgGradeByCourse.get(course));
-//                System.out.println(group.getName() + "'s average grade in " + course.getName() + ": " + avgGradeByCourse.get(course));
-//                System.out.println(group.getName() + "'s average grade in " + course.getName() + ": " + avgGradeByGroup.get(group));
                 System.out.println("Average grade in " + course.getName() + " for " + group.getName() + " is: " + avgGradeByGroup.get(group));
-
             }
         }
         System.out.println();
