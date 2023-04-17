@@ -14,6 +14,7 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(Main.class);
+//        Console.main(args);
 
         AvgGradeByGroupByCourse avgGradeByGroupByCourse = context.getBean(AvgGradeByGroupByCourse.class);
         Map<Course, Map<Group, Double>> avgGradeByCourseByGroup = avgGradeByGroupByCourse.get();

@@ -16,7 +16,7 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) throws SQLException {
         ConfigurableApplicationContext context = SpringApplication.run(Main.class);
-        Console.main(args);
+//        Console.main(args);
 
         AvgGradeByGroupByCourse avgGradeByGroupByCourse = context.getBean(AvgGradeByGroupByCourse.class);
         Map<Course, Map<Group, Double>> courseMapMap = avgGradeByGroupByCourse.get();
