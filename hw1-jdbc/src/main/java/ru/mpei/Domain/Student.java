@@ -19,8 +19,7 @@ public class Student {
         return "Student{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-//                ", group=" + group.getName() +
-                ", group=" + group +
+                ", group=" + group.getName() +
                 ", grades=..." +
                 '}';
     }

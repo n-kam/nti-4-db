@@ -50,14 +50,6 @@ public class AvgGradeByGroupByCourse {
                     if (gradesCountByGroup.containsKey(group)) currCount += gradesCountByGroup.get(group);
 
                     gradesCountByGroup.put(group, currCount);
-
-
-//                    System.out.println("Course: " + course.getName() +
-//                            ", Ass: " + assignment.getName() +
-//                            ", Stud: " + grade.getStudent().getName() +
-//                            ", Group: " + grade.getStudent().getGroup().getName() +
-//                            ", Val: " + grade.getValue());
-
                 }
             }
 
@@ -66,16 +58,13 @@ public class AvgGradeByGroupByCourse {
             for (Group group : gradesSumByGroup.keySet()) {
                 double sum = gradesSumByGroup.get(group);
                 int count = gradesCountByGroup.get(group);
-//                Double avg = Double.valueOf(df)
                 double avg = Double.parseDouble(df.format(sum / count));
                 avgGradeByGroup.put(group, avg);
-//                System.out.println("DBG: Course: " + course.getName() + ", group: " + group.getName() + ", avg: " + avg);
             }
             avgGradeByCourseByGroup.put(course, avgGradeByGroup);
 
         }
         return avgGradeByCourseByGroup;
     }
-
 }
 

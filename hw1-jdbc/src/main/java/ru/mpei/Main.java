@@ -20,6 +20,7 @@ public class Main {
 
         AvgGradeByGroupByCourse avgGradeByGroupByCourse = context.getBean(AvgGradeByGroupByCourse.class);
         Map<Course, Map<Group, Double>> courseMapMap = avgGradeByGroupByCourse.get();
+        System.out.println();
 
         for (Course course : courseMapMap.keySet()){
             for (Group group : courseMapMap.get(course).keySet()){
@@ -27,5 +28,6 @@ public class Main {
                 System.out.println("Average grade in " + course.getName() + " for " + group.getName() + " is: " + avg);
             }
         }
+        System.out.println();
     }
 }

@@ -2,39 +2,22 @@ package ru.mpei.DAO;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.stereotype.Repository;
 import ru.mpei.Domain.*;
 
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.*;
 
 @Repository
 public class CourseDaoJdbc {
 
-    //    private final JdbcOperations jdbc;
     private final NamedParameterJdbcOperations npjo;
 
     public CourseDaoJdbc(NamedParameterJdbcOperations npjo) {
-//        this.jdbc = namedParameterJdbcOperations.getJdbcOperations();
         this.npjo = npjo;
     }
-
-//    public void insert(Student student) {
-//        namedParameterJdbcOperations.update("insert into persons (id, name) values (:id, :name)",
-//                Map.of("id", person.getId(), "name", person.getName()));
-//    }
-
-//    public Student getById(long id) {
-//        Map<String, Object> params = Collections.singletonMap("id", id);
-//        return npjo.queryForObject(
-//                "select id, name from courses where id = :id", params, new StudentMapper()
-//        );
-//    }
-
 
     public Course getById(long id) {
         Map<String, Object> params = Collections.singletonMap("id", id);
@@ -43,11 +26,11 @@ public class CourseDaoJdbc {
                 "a.name as a_name, course_id, gd.id as gd_id, g_value, student_id, " +
                 "assignment_id, s.name as s_name, group_id, gp.name as gp_name " +
                 "from courses c " +
-                "where id=:id " +
                 "left join assignments a on c.id=a.course_id " +
                 "left join grades gd on gd.assignment_id = a.id " +
                 "left join students s on gd.student_id = s.id " +
-                "left join groups gp on s.group_id = gp.id", params, new CourseRse())).get(0);
+                "left join groups gp on s.group_id = gp.id " +
+                "where c.id=:id", params, new CourseRse())).get(0);
     }
 
     public List<Course> getAll() {
@@ -61,12 +44,6 @@ public class CourseDaoJdbc {
                 "left join groups gp on s.group_id = gp.id", new CourseRse());
     }
 
-    //    public void deleteById(long id) {
-//        Map<String, Object> params = Collections.singletonMap("id", id);
-//        namedParameterJdbcOperations.update(
-//                "delete from persons where id = :id", params
-//        );
-//    }
     private static class CourseRse implements ResultSetExtractor<List<Course>> {
 
         @Override
@@ -77,14 +54,6 @@ public class CourseDaoJdbc {
             HashMap<Long, Grade> grades = new HashMap<>();
             HashMap<Long, Assignment> assignments = new HashMap<>();
             HashMap<Long, Course> courses = new HashMap<>();
-
-            ResultSetMetaData metadata = rs.getMetaData();
-            int columnCount = metadata.getColumnCount();
-            String labels = "";
-            for (int i = 1; i <= columnCount; i++) {
-                labels += metadata.getColumnLabel(i) + ", ";
-            }
-            System.out.println("labels: " + labels);
 
             while (rs.next()) {
 
@@ -145,42 +114,8 @@ public class CourseDaoJdbc {
                     a.getGrades().add(grade);
                     grades.put(gradeId, grade);
                 } else grade = grades.get(gradeId);
-
-//                student.setGroup(group);
-//                group.getStudents().add(student);
-
-//                grade.setStudent(student);
-//                student.getGrades().add(grade);
-
-//                grade.setAssignment(a);
-//                a.getGrades().add(grade);
-
-//                a.setCourse(course);
-//                course.getAssignments().add(a);
-
-
-                String row = "";
-                for (int i = 1; i <= columnCount; i++) {
-                    row += rs.getString(i) + ", ";
-                }
-                System.out.println(row);
-
             }
-
             return new ArrayList<>(courses.values());
-        }
-    }
-
-    private static class StudentMapper implements RowMapper<Student> {
-
-        @Override
-        public Student mapRow(ResultSet resultSet, int i) throws SQLException {
-            long id = resultSet.getLong("id");
-            String name = resultSet.getString("name");
-            Student student = new Student();
-            student.setId(id);
-            student.setName(name);
-            return student;
         }
     }
 }
