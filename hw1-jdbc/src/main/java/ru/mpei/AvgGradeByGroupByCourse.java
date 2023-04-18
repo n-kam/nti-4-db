@@ -10,7 +10,9 @@ import ru.mpei.Domain.Group;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class AvgGradeByGroupByCourse {
@@ -29,7 +31,7 @@ public class AvgGradeByGroupByCourse {
 
         Map<Course, Map<Group, Double>> avgGradeByCourseByGroup = new HashMap<>();
 
-        List<Course> courses = courseDao.getAll();
+        List<Course> courses = courseDao.extractFullModel();
         for (Course course : courses) {
 
             Map<Group, Double> gradesSumByGroup = new HashMap<>();

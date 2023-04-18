@@ -2,6 +2,7 @@ package ru.mpei.DAO;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.stereotype.Repository;
 import ru.mpei.Domain.*;
@@ -11,40 +12,58 @@ import java.sql.SQLException;
 import java.util.*;
 
 @Repository
-public class CourseDaoJdbc {
+public class CourseDaoJdbc implements CourseDao {
 
-    private final NamedParameterJdbcOperations npjo;
+    private final NamedParameterJdbcOperations jdbc;
 
-    public CourseDaoJdbc(NamedParameterJdbcOperations npjo) {
-        this.npjo = npjo;
+    public CourseDaoJdbc(NamedParameterJdbcOperations jdbc) {
+        this.jdbc = jdbc;
     }
 
+    @Override
+    public void insert(Course course) {
+        jdbc.update("insert into courses (id, name) values (:id, :name)",
+                Map.of("id", course.getId(), "name", course.getName()));
+    }
+
+    @Override
     public Course getById(long id) {
-        Map<String, Object> params = Collections.singletonMap("id", id);
-
-        return Objects.requireNonNull(npjo.query("select c.id as c_id, c.name as c_name, a.id as a_id, " +
-                "a.name as a_name, course_id, gd.id as gd_id, g_value, student_id, " +
-                "assignment_id, s.name as s_name, group_id, gp.name as gp_name " +
-                "from courses c " +
-                "left join assignments a on c.id=a.course_id " +
-                "left join grades gd on gd.assignment_id = a.id " +
-                "left join students s on gd.student_id = s.id " +
-                "left join groups gp on s.group_id = gp.id " +
-                "where c.id=:id", params, new CourseRse())).get(0);
+        return jdbc.queryForObject("select * from courses where id=:id", Map.of("id", id), new CourseMapper());
     }
 
+    @Override
     public List<Course> getAll() {
-        return npjo.query("select c.id as c_id, c.name as c_name, a.id as a_id, " +
+        return jdbc.query("select * from courses", new CourseMapper());
+    }
+
+    @Override
+    public void deleteById(long id) {
+        jdbc.update("delete from courses where id=:id", Map.of("id", id));
+
+    }
+
+    public List<Course> extractFullModel() {
+        return jdbc.query("select c.id as c_id, c.name as c_name, a.id as a_id, " +
                 "a.name as a_name, course_id, gd.id as gd_id, g_value, student_id, " +
                 "assignment_id, s.name as s_name, group_id, gp.name as gp_name " +
                 "from courses c " +
                 "left join assignments a on c.id=a.course_id " +
                 "left join grades gd on gd.assignment_id = a.id " +
                 "left join students s on gd.student_id = s.id " +
-                "left join groups gp on s.group_id = gp.id", new CourseRse());
+                "left join groups gp on s.group_id = gp.id", new CourseFullModelRse());
     }
 
-    private static class CourseRse implements ResultSetExtractor<List<Course>> {
+    private static class CourseMapper implements RowMapper<Course> {
+
+        @Override
+        public Course mapRow(ResultSet rs, int rowNum) throws SQLException {
+            return new Course(rs.getLong("id"),
+                    rs.getString("name"),
+                    new ArrayList<>());
+        }
+    }
+
+    private static class CourseFullModelRse implements ResultSetExtractor<List<Course>> {
 
         @Override
         public List<Course> extractData(ResultSet rs) throws SQLException, DataAccessException {

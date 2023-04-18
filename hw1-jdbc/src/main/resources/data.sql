@@ -1,6 +1,6 @@
-insert into groups (NAME)
-values  ('Gryffindor'),
-        ('Slytherin');
+insert into groups (name, g_year)
+values  ('Gryffindor', 1991),
+        ('Slytherin', 1991);
 --        ('Ravenclaw'),
 --        ('Hufflepuff');
 

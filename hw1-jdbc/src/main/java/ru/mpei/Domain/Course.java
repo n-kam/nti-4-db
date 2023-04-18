@@ -1,5 +1,6 @@
 package ru.mpei.Domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +9,7 @@ import java.util.Objects;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Course {
     private long id;
     private String name;
@@ -24,5 +26,9 @@ public class Course {
     @Override
     public int hashCode() {
         return Objects.hash(id, name);
+    }
+
+    public Course(long id) {
+        this.id = id;
     }
 }
