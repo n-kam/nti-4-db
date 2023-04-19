@@ -1,18 +1,7 @@
 package ru.mpei.repository;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import ru.mpei.model.Course;
 
-import java.util.List;
-import java.util.Optional;
-
-@Repository
-public interface CourseRepo {
-    void save(Course s);
-
-    boolean delete(long id);
-
-    Optional<Course> get(long id);
-
-    List<Course> getAll();
+public interface CourseRepo extends JpaRepository<Course, Long> {
 }

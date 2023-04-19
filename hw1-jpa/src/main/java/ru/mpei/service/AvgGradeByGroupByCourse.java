@@ -1,6 +1,6 @@
 package ru.mpei.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.mpei.model.Assignment;
 import ru.mpei.model.Course;
@@ -16,13 +16,11 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class AvgGradeByGroupByCourse {
 
-
-    @Autowired
-    private CourseRepo courseRepo;
-    @Autowired
-    private GroupRepo groupRepo;
+    private final CourseRepo courseRepo;
+    private final GroupRepo groupRepo;
 
     DecimalFormat df = new DecimalFormat("#.##");
 
@@ -32,8 +30,8 @@ public class AvgGradeByGroupByCourse {
 
     public Map<Course, Map<Group, Double>> get() {
 
-        List<Group> groups = groupRepo.getAll();
-        List<Course> courses = courseRepo.getAll();
+        List<Group> groups = groupRepo.findAll();
+        List<Course> courses = courseRepo.findAll();
 
         Map<Course, Map<Group, Double>> avgGradeByCourseByGroup = new HashMap<>();
 
