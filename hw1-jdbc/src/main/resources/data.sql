@@ -37,7 +37,7 @@ values  ('Homework',  1),
 insert into grades (student_id, assignment_id, g_value)
 values
         (1, 1, 4),
-        (1, 2, 5),
+        (1, 2, 2),
         (1, 3, 3),
         (1, 4, 2),
         (1, 5, 5),

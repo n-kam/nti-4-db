@@ -1,8 +1,6 @@
-insert into groups (NAME)
-values  ('Gryffindor'),
-        ('Slytherin');
---        ('Ravenclaw'),
---        ('Hufflepuff');
+insert into groups (name, g_year)
+values  ('Gryffindor', 1991),
+        ('Slytherin', 1991);
 
 insert into students (name, group_id)
 values  ('Harry Potter',        1),
@@ -11,17 +9,10 @@ values  ('Harry Potter',        1),
         ('Draco Malfoy',        2),
         ('Theodore Nott',       2),
         ('Blaise Zabini',       2);
---        ('Cho Chang',           3),
---        ('Luna Lovegood',       3),
---        ('Lisa Turpin',         3),
---        ('Hannah Abbott',       4),
---        ('Susan Bones',         4),
---        ('Ernie Macmillan',     4);
 
 insert into courses (name)
 values  ('Potions'),
         ('Charms');
---        ('Transfiguration');
 
 insert into assignments (name, course_id)
 values  ('Homework',  1),
@@ -30,14 +21,11 @@ values  ('Homework',  1),
         ('Homework',  2),
         ('Classwork', 2),
         ('Essay',     2);
---        ('Homework',  3),
---        ('Classwork', 3),
---        ('Essay',     3);
 
 insert into grades (student_id, assignment_id, g_value)
 values
         (1, 1, 4),
-        (1, 2, 5),
+        (1, 2, 2),
         (1, 3, 3),
         (1, 4, 2),
         (1, 5, 5),

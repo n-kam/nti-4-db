@@ -19,6 +19,9 @@ public class Group {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(name = "g_year", nullable = false)
+    private long year;
+
     @Column(name = "name", nullable = false)
     private String name;
 
