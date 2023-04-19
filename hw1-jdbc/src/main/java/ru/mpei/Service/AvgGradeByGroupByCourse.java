@@ -1,4 +1,4 @@
-package ru.mpei;
+package ru.mpei.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +27,7 @@ public class AvgGradeByGroupByCourse {
     @Autowired
     CourseDaoJdbc courseDao;
 
-    Map<Course, Map<Group, Double>> get() {
+    public Map<Course, Map<Group, Double>> get() {
 
         Map<Course, Map<Group, Double>> avgGradeByCourseByGroup = new HashMap<>();
 

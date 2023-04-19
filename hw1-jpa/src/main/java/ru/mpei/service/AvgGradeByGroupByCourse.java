@@ -1,4 +1,4 @@
-package ru.mpei;
+package ru.mpei.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +30,7 @@ public class AvgGradeByGroupByCourse {
         df.setRoundingMode(RoundingMode.CEILING);
     }
 
-    Map<Course, Map<Group, Double>> get() {
+    public Map<Course, Map<Group, Double>> get() {
 
         List<Group> groups = groupRepo.getAll();
         List<Course> courses = courseRepo.getAll();

@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import ru.mpei.model.Course;
 import ru.mpei.model.Group;
+import ru.mpei.service.AvgGradeByGroupByCourse;
 
 import java.util.Map;
 
