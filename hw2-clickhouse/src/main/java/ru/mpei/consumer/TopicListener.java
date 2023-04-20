@@ -23,11 +23,7 @@ public class TopicListener {
 
     @KafkaListener(topics = "${topic.name.consumer}", groupId = "group_id")
     public void consume(ConsumerRecord<String, Measurement> payload) {
-        log.info("Topic: {}", topicName);
-        log.info("key: {}", payload.key());
-        log.info("Headers: {}", payload.headers());
-        log.info("Partion: {}", payload.partition());
-        log.info("Got measurement from topic {}: {}", topicName, payload.value());
+        log.info("Got measurement from Kafka {}: {}", topicName, payload.value());
         repo.save(payload.value());
     }
 

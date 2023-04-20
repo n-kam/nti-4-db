@@ -2,12 +2,12 @@ package ru.mpei.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.mpei.domain.Measurement;
 import ru.mpei.producer.TopicProducer;
-
-import java.time.Instant;
 
 
 @RequiredArgsConstructor
@@ -20,13 +20,7 @@ public class KafkaController {
 
     @GetMapping(value = "/send")
     public void send(@RequestBody Measurement m) {
-        log.info("got measurement with rest: {}", m);
+        log.info("Got measurement from rest: {}", m);
         topicProducer.send(m);
-    }
-
-    @GetMapping(value = "/getDtoDebug")
-    public Measurement getDtoDebug() {
-        return new Measurement(Instant.now(), "trans 1242", 234.44);
-//        return new Measurement("trans 1242", 234.44);
     }
 }

@@ -10,7 +10,6 @@ import ru.mpei.domain.Measurement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @AllArgsConstructor
@@ -40,7 +39,6 @@ public class MeasurementRepo {
     public static class MeasurementsMapper implements RowMapper<Measurement> {
         @Override
         public Measurement mapRow(ResultSet rs, int rowNum) throws SQLException {
-            System.out.println("RESULT SET: " + rs.toString());
             return new Measurement(
                     rs.getTimestamp("timestamp").toInstant(),
                     rs.getNString("source"),

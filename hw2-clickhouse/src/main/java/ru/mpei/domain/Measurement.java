@@ -14,5 +14,3 @@ public class Measurement {
     private String source;
     private Double value;
 }
-
-//public record Measurement(Instant timestamp, String source, Double value){}

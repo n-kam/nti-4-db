@@ -18,7 +18,7 @@ public class TopicProducer {
     private final KafkaTemplate<String, Measurement> kafkaTemplate;
 
     public void send(Measurement m) {
-        log.info("sending meas to kafka {}: {}", topicName, m);
+        log.info("Sending measurement to Kafka {}: {}", topicName, m);
         kafkaTemplate.send(topicName, m);
     }
 }
