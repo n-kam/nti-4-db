@@ -1,0 +1,48 @@
+clickhouse:
+  host: localhost
+  port: 8123
+  database: hw2
+  user: default
+  password:
+
+spring:
+#  datasource:
+#    initialization-mode: always
+  sql:
+    init:
+      mode: always
+#      data-locations: data.sql
+#      schema-locations: resources/init.sql
+  kafka:
+    consumer:
+      allow.auto.create.topics: true
+      bootstrap-servers: localhost:9093
+      properties:
+        spring.json.trusted.packages: ru.mpei.*
+      group-id: measurements
+      auto-offset-reset: latest
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      key-deserializer: ru.mpei.util.CustomDeserializer
+#      value-deserializer: ru.mpei.util.CustomDeserializer
+      key-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+
+    producer:
+      allow.auto.create.topics: true
+      bootstrap-servers: localhost:9093
+      properties:
+        spring.json.add.type.headers: true
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      key-serializer: ru.mpei.util.CustomSerializer
+#      value-serializer: ru.mpei.util.CustomSerializer
+      key-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+topic:
+  name:
+    producer: measurements
+    consumer: measurements
+
+spring.sql.init.schema.location: schema.sql
