@@ -23,8 +23,6 @@ services:
       - KAFKA_CFG_LISTENERS=CLIENT://:9092,EXTERNAL://:9093
       - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://kafka:9092,EXTERNAL://localhost:9093
       - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=CLIENT
-        #- KAFKA_CFG_ADVERTISED_HOST_NAME: 127.0.0.1
-        #- KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE: 'true'
     depends_on:
       - zookeeper
   clickhouse:
@@ -33,7 +31,6 @@ services:
       - ALLOW_EMPTY_PASSWORD=yes
     ports:
       - '8123:8123'
-      - '9000:9000'
     volumes:
       - clickhouse_data:/bitnami/clickhouse
 

@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#curl -X GET "http://localhost:8080/kafka/getDtoDebug" | jq
-
 curl -X GET "http://localhost:8080/kafka/send" \
    -H 'Content-Type: application/json' \
    -d '{
@@ -54,7 +52,5 @@ curl -X GET "http://localhost:8080/kafka/send" \
 	"value": 234.34 
 	}' | jq
 
-
-sleep 1
 
 curl -X GET "http://localhost:8080/clickhouse/getAll" | jq
