@@ -2,7 +2,7 @@ package ru.mpei.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +18,7 @@ public class KafkaController {
 
     private final TopicProducer topicProducer;
 
-    @GetMapping(value = "/send")
+    @PostMapping(value = "/send")
     public void send(@RequestBody Measurement m) {
         log.info("Got measurement from rest: {}", m);
         topicProducer.send(m);
