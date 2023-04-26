@@ -9,6 +9,7 @@ import ru.mpei.domain.Measurement;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @Service
@@ -40,7 +41,7 @@ public class MeasurementRepo {
         @Override
         public Measurement mapRow(ResultSet rs, int rowNum) throws SQLException {
             return new Measurement(
-                    rs.getTimestamp("timestamp").toInstant(),
+                    rs.getObject("timestamp", OffsetDateTime.class),
                     rs.getNString("source"),
                     rs.getDouble("value")
             );

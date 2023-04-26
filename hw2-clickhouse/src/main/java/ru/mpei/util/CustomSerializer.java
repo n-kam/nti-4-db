@@ -2,16 +2,20 @@ package ru.mpei.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.serialization.Serializer;
 import ru.mpei.domain.Measurement;
+
+import java.util.TimeZone;
 
 @Slf4j
 public class CustomSerializer implements Serializer<Measurement> {
     @Override
     public byte[] serialize(String s, Measurement commandDto) {
         ObjectMapper objectMapper = new ObjectMapper();
-//        log.info("Serializing {}", commandDto);
+        objectMapper.registerModule(new JavaTimeModule())
+                .setTimeZone(TimeZone.getTimeZone("Europe/Moscow"));
         if (commandDto != null) {
             try {
                 return objectMapper.writeValueAsBytes(commandDto);
